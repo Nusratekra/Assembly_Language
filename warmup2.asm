@@ -15,7 +15,7 @@ MAIN PROC
     MOV AX, @DATA
     MOV DS, AX
 
-    ; ---------- Input x ----------
+    ;Input x
     LEA DX, msg1
     MOV AH, 9
     INT 21H
@@ -24,7 +24,7 @@ MAIN PROC
     SUB AL, 30H
     MOV x, AL
 
-    ; ---------- Input y ----------
+    ;Input y
     LEA DX, msg2
     MOV AH, 9
     INT 21H
@@ -33,7 +33,7 @@ MAIN PROC
     SUB AL, 30H
     MOV y, AL
 
-    ; ---------- Input C ----------
+    ;Input C
     LEA DX, msg3
     MOV AH, 9
     INT 21H
@@ -42,7 +42,7 @@ MAIN PROC
     SUB AL, 30H
     MOV c, AL
 
-    ; ---------- Check C ----------
+    ;Check C
     CMP c, 0
     JE FIND_MIN
     JMP FIND_MAX
@@ -87,3 +87,4 @@ END_PROG:
     INT 21H
 MAIN ENDP
 END MAIN
+
