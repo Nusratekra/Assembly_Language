@@ -1,78 +1,66 @@
-.model small
-.stack 100h
-.data
- x db 0
- y db 0
- z db 0
+.MODEL SMALL
+.STACK 100H
+.DATA
+    x DB 0
+    y DB 0
+    z DB 0
+    msgAdd DB 13,10,'Result of X + Y = $'
+    msgSub DB 13,10,'Result of X - Y = $'
 
- msg1 db 'Enter the value of x: $'
- msg2 db 13,10,'Enter the value of y: $'
- msg3 db 13,10,'Enter the value of z (0=ADD, 1=SUB): $'
- msgAdd db 13,10,'x + y = $'
- msgSub db 13,10,'x - y = $'
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
 
-.code
-main proc
-    mov ax, @data
-    mov ds, ax
+    MOV AH, 1
+    INT 21H
+    SUB AL, 30H
+    MOV x, AL
 
-    ; input x
-    lea dx, msg1
-    mov ah, 9
-    int 21h
-    mov ah, 1
-    int 21h
-    sub al, 30h
-    mov x, al
+    MOV AH, 1
+    INT 21H
+    SUB AL, 30H
+    MOV y, AL
 
-    ; input y
-    lea dx, msg2
-    mov ah, 9
-    int 21h
-    mov ah, 1
-    int 21h
-    sub al, 30h
-    mov y, al 
+    MOV AH, 1
+    INT 21H
+    SUB AL, 30H
+    MOV z, AL
 
-    ; input z
-    lea dx, msg3
-    mov ah, 9
-    int 21h
-    mov ah, 1
-    int 21h
-    sub al, 30h
-    mov z, al
+    CMP z, 0
+    JE DO_ADD
+    JMP DO_SUB
 
-    ; check z
-    cmp z, 0
-    je do_add
-    jmp do_sub
+DO_ADD:
+    LEA DX, msgAdd      
+    MOV AH, 9
+    INT 21H
 
-do_add:
-    mov al, x
-    add al, y
-    add al, 30h
-    lea dx, msgAdd
-    mov ah, 9
-    int 21h
-    mov dl, al
-    mov ah, 2
-    int 21h
-    jmp end_program 
+    MOV AL, x
+    MOV BL, y
+    ADD AL, BL         
+    ADD AL, 30H        
+    MOV DL, AL
+    MOV AH, 2
+    INT 21H
+    JMP END_PROG
 
-do_sub:
-    mov al, x
-    sub al, y
-    add al, 30h
-    lea dx, msgSub
-    mov ah, 9
-    int 21h
-    mov dl, al
-    mov ah, 2
-    int 21h
+DO_SUB:
+    LEA DX, msgSub      ; print message
+    MOV AH, 9
+    INT 21H
 
-end_program:
-    mov ah, 4ch
-    int 21h
-main endp
-end main
+    MOV AL, x
+    MOV BL, y
+    SUB AL, BL         
+    ADD AL, 30H        
+    MOV DL, AL
+    MOV AH, 2
+    INT 21H
+
+END_PROG:
+    MOV AH, 4CH
+    INT 21H
+
+MAIN ENDP
+END MAIN
