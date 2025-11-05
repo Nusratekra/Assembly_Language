@@ -35,7 +35,6 @@ DO_ADD:
     LEA DX, msgAdd      
     MOV AH, 9
     INT 21H
-
     MOV AL, x
     MOV BL, y
     ADD AL, BL         
@@ -46,10 +45,9 @@ DO_ADD:
     JMP END_PROG
 
 DO_SUB:
-    LEA DX, msgSub      ; print message
+    LEA DX, msgSub    
     MOV AH, 9
     INT 21H
-
     MOV AL, x
     MOV BL, y
     SUB AL, BL         
