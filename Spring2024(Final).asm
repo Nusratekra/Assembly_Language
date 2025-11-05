@@ -28,13 +28,11 @@ MAIN PROC
     SUB AL,30H
     MOV z,AL
 
-    ; --- Input C (0=Min,1=Max) ---
     MOV AH,1
     INT 21H
     SUB AL,30H
     MOV c,AL
 
-    ; --- Check operation ---
     CMP c,0
     JE FIND_MIN
     JMP FIND_MAX
@@ -87,3 +85,4 @@ END_PROG:
     INT 21H
 MAIN ENDP
 END MAIN
+
