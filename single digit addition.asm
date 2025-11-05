@@ -15,9 +15,9 @@ MAIN PROC
     INT 21H
 
     MOV AH, 1
-    INT 21H            ; Read from keyboard
-    SUB AL, 48         ; Convert ASCII to decimal(because the value we give in console take it as ASCII)
-    MOV BL, AL         ; Store first digit in BL
+    INT 21H          
+    SUB AL, 48    
+    MOV BL, AL        
 
     ; Ask for second digit
     MOV AH, 9
@@ -27,7 +27,7 @@ MAIN PROC
     MOV AH, 1
     INT 21H
     SUB AL, 48
-    ADD BL, AL         ; BL = sum
+    ADD BL, AL     
 
     ; Display message
     MOV AH, 9
@@ -46,6 +46,7 @@ MAIN PROC
     
 MAIN ENDP
 END MAIN
+
 
 
 
